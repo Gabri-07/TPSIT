@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatore e Tabelline</title>
+</head>
+<body>
+    <div id="counter"></div>
+    <div id="tabelline"></div>
+    <script>
+        let count = 1;
+        let interval = setInterval(function() {
+            if (count <= 5) {
+                document.getElementById("counter").innerHTML = "Contatore: " + count;
+                count++;
+            } else {
+                clearInterval(interval);
+                document.getElementById("tabelline").innerHTML = "<p>Qua c'è la tabellina dall'1 al 10:</p>";
+                for (let j = 1; j <= 10; j++) {
+                    let table = "<table>";
+                    for (let i = 1; i <= 10; i++) {
+                        table += "<tr><td>" + j + " x " + i + " = " + (j * i) + "</td></tr>";
+                    }
+                    table += "</table><br>";
+                    document.getElementById("tabelline").innerHTML += table;
+                }
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
