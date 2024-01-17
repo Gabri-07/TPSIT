@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Stampa Numeri e 10%</h1>
+
+    <label for="numeroInput">Inserisci un numero: </label>
+    <input type="number" id="numeroInput" min="1" required>
+    <button onclick="stampaNumeriEPercentuale()">Stampa</button>
+
+    <div id="risultato"></div>
+
+    <script>
+        function stampaNumeriEPercentuale() {
+          
+            var numeroInput = document.getElementById("numeroInput").value;
+
+            var stampaNumeri = "";
+ 
+            for (var i = 1; i <= numeroInput; i++) {
+                stampaNumeri += i + "<br>";
+            }
+
+            var percentuale = 0.1 * numeroInput;
+
+            stampaNumeri += "<br>10% di " + numeroInput + " è: " + percentuale;
+
+            document.getElementById("risultato").innerHTML = stampaNumeri;
+        }
+    </script>
+
+</body>
+</html>
