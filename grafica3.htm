@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Programma Quadrati</title>
+  <style>
+    .scacchiera {
+      display: grid;
+      grid-template-columns: repeat(10, 20px);
+      grid-template-rows: repeat(10, 20px); /* Aggiunto il numero di righe */
+      grid-gap: 2px; /* Aggiunto margine tra le colonne */
+    }
+
+    .cella {
+      width: 20px;
+      height: 20px;
+      border: 1px solid black;
+      box-sizing: border-box; /* Aggiunto box-sizing per includere il bordo nella larghezza e altezza */
+    }
+
+    .grigio-chiaro {
+      background-color: #eee; /* Grigio chiaro */
+    }
+
+    .grigio-scuro {
+      background-color: #888; /* Grigio scuro */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="scacchiera" id="quadrato"></div>
+  <script>
+    function generaScacchiera() {
+      var scacchiera = document.getElementById('quadrato');
+      scacchiera.innerHTML = '';
+
+      for (var i = 1; i <= 100; i++) {
+        var cella = document.createElement('div');
+        var classeColore = (i % 2 === 0) ? 'grigio-chiaro' : 'grigio-scuro';
+
+        cella.className = 'cella ' + classeColore;
+        scacchiera.appendChild(cella);
+      }
+    }
+
+    generaScacchiera(); // Esegui la generazione all'avvio della pagina
+  </script>
+
+</body>
+
+</html>
