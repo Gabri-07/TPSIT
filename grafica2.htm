@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+  
+  
+<body>
+  
+ 
+  <input type="number" id="div">
+  <button onclick="generaquad()">crea quadrati</button>
+  <div id="quadrato"></div>
+  
+  <script>
+    function generaquad()
+    {
+      var num = parseInt(document.getElementById('div').value);
+      for (var i=0; i<num; i++)
+      {
+        var div = document.createElement('div');
+        div.style.width = '10px';
+        div.style.height = '10px';
+        div.style.backgroundColor = 'red';  
+        div.style.border = '1px solid black';
+        document.getElementById('quadrato').appendChild(div);
+      }
+    }
+  </script>
+
+</body>
+</html>
