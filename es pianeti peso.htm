@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolare il peso sui pianeti</title>
+</head>
+<body>
+    <h1>Calcolare il peso sui pianeti</h1>
+    <label for="peso">Inserisci il tuo peso (kg):</label>
+    <input type="number" id="peso" required>
+    <button onclick="calcolaPesi()">Calcola pesi sui pianeti</button>
+    <h2>Pesi sui pianeti:</h2>
+    <ul id="piani"></ul>
+    <script>
+        const pianeti = [
+            { nome: 'Mercurio', accelerazioneGravita: 3.7 },
+            { nome: 'Venere', accelerazioneGravita: 8.87 },
+            { nome: 'Terra', accelerazioneGravita: 9.81 },
+            { nome: 'Mars', accelerazioneGravita: 3.71 },
+            { nome: 'Giove', accelerazioneGravita: 24.79 },
+            { nome: 'Saturno', accelerazioneGravita: 10.44 },
+            { nome: 'Urano', accelerazioneGravita: 8.69 },
+            { nome: 'Nettuno', accelerazioneGravita: 11.15 }
+        ];
+
+        function calcolaPesoSuPianeta(peso, accelerazioneGravita) {
+            return peso * accelerazioneGravita;
+        }
+
+        function calcolaPesi() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const listaPiani = document.getElementById('piani');
+            listaPiani.innerHTML = '';
+            for (const pianeta of pianeti) {
+                const pesoSuPianeta = calcolaPesoSuPianeta(peso, pianeta.accelerazioneGravita);
+                const listaElemento = document.createElement('li');
+                listaElemento.textContent = `${pianeta.nome}: ${pesoSuPianeta.toFixed(2)} kg`;
+                listaPiani.appendChild(listaElemento);
+            }
+        }
+    </script>
+</body>
+</html>
