@@ -1,79 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stampa Quadrati</title>
-<style>
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    
-  .sgap: 2px;
-  }
-quare {
-    width: 10px;
-    height: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid black;
-    margin: 2px;
-  }
-
-  .dark {
-    background-color: #666;
-  }
-
-  .light {
-    background-color: #f0f0f0;
-  }
-
-  table {
-    border-collapse: collapse;
-  }
-
-  table td {
-    width: 12px;
-    height: 12px;
-    border: 1px solid black;
-    padding: 0;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadrato</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 20px);
+            grid-template-rows: repeat(10, 20px);
+            gap: 2px;
+        }
+        .square {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+        }
+        .light-gray {
+            background-color: lightgray;
+        }
+        .dark-gray {
+            background-color: darkgray;
+        }
+    </style>
 </head>
 <body>
-  <h1>Stampa Quadrati</h1>
-  <div class="container" id="container"></div>
-  <h2>Tabella 10x10</h2>
-  <table id="table"></table>
+    <h1>Esercizio 3</h1>
+    <div id="result" class="grid"></div>
 
-  <script>
-    const container = document.getElementById('container');
-    const table = document.getElementById('table');
-
-    for (let i = 1; i <= 100; i++) {
-      const square = document.createElement('div');
-      square.classList.add('square');
-      if (i % 2 === 0) {
-        square.classList.add('light');
-      } else {
-        square.classList.add('dark');
-      }
-      container.appendChild(square);
-    }
-
-    for (let i = 1; i <= 10; i++) {
-      const row = document.createElement('tr');
-      for (let j = 1; j <= 10; j++) {
-        const cell = document.createElement('td');
-        cell.classList.add('square');
-        if ((i + j) % 2 === 0) {
-          cell.classList.add('light');
-        } else {
-          cell.classList.add('dark');
+    <script>
+        function createGrid() {
+            const grid = document.getElementById('result');
+            for (let i = 1; i <= 100; i++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                if (i % 2 === 0) {
+                    square.classList.add('light-gray');
+                } else {
+                    square.classList.add('dark-gray');
+                }
+                if (i % 10 === 0) {
+                    grid.appendChild(document.createElement('br'));
+                }
+                grid.appendChild(square);
+            }
         }
-        row.appendChild(cell);
-      }
-      table.appendChild(row);
-    }
-  </script>
+        createGrid();
+    </script>
 </body>
 </html>
