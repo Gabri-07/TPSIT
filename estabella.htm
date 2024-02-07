@@ -1,55 +1,79 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Tabella</title>
-  <style>
-    .scacchiera {
-      display: grid;
-      grid-template-columns: repeat(10, 20px);
-      grid-template-rows: repeat(10, 20px);
-      grid-gap: 2px; 
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stampa Quadrati</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    
+  .sgap: 2px;
+  }
+quare {
+    width: 10px;
+    height: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid black;
+    margin: 2px;
+  }
 
-    .cella {
-      width: 20px;
-      height: 20px;
-      border: 1px solid black;
-      box-sizing: border-box; 
-    }
+  .dark {
+    background-color: #666;
+  }
 
-    .grigio-chiaro {
-      background-color: #eee; 
-    }
+  .light {
+    background-color: #f0f0f0;
+  }
 
-    .grigio-scuro {
-      background-color: #888; 
-    }
-  </style>
+  table {
+    border-collapse: collapse;
+  }
+
+  table td {
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    padding: 0;
+  }
+</style>
 </head>
-
 <body>
+  <h1>Stampa Quadrati</h1>
+  <div class="container" id="container"></div>
+  <h2>Tabella 10x10</h2>
+  <table id="table"></table>
 
-  <div class="scacchiera" id="quadrato"></div>
   <script>
-    function generaScacchiera() {
-      var scacchiera = document.getElementById('quadrato');
-      scacchiera.innerHTML = '';
+    const container = document.getElementById('container');
+    const table = document.getElementById('table');
 
-      for (var i = 1; i <= 100; i++) {
-        var cella = document.createElement('div');
-        var classeColore = (i % 2 === 0) ? 'grigio-chiaro' : 'grigio-scuro';
-
-        cella.className = 'cella ' + classeColore;
-        scacchiera.appendChild(cella);
+    for (let i = 1; i <= 100; i++) {
+      const square = document.createElement('div');
+      square.classList.add('square');
+      if (i % 2 === 0) {
+        square.classList.add('light');
+      } else {
+        square.classList.add('dark');
       }
+      container.appendChild(square);
     }
 
-    generaScacchiera(); 
+    for (let i = 1; i <= 10; i++) {
+      const row = document.createElement('tr');
+      for (let j = 1; j <= 10; j++) {
+        const cell = document.createElement('td');
+        cell.classList.add('square');
+        if ((i + j) % 2 === 0) {
+          cell.classList.add('light');
+        } else {
+          cell.classList.add('dark');
+        }
+        row.appendChild(cell);
+      }
+      table.appendChild(row);
+    }
   </script>
-
 </body>
-
 </html>
