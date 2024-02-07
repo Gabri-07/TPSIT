@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertitore Voti</title>
+</head>
+<body>
+    <h1>Convertitore dei voti</h1>
+
+    <label for="voto1">Voto 1 (decimi): </label>
+    <input type="number" id="voto1" min="0" max="10">
+    <br>
+    <label for="voto2">Voto 2 (decimi): </label>
+    <input type="number" id="voto2" min="0" max="10">
+    <br>
+    <label for="voto3">Voto 3 (decimi): </label>
+    <input type="number" id="voto3" min="0" max="10">
+    <br>
+    <label for="voto4">Voto 4 (decimi): </label>
+    <input type="number" id="voto4" min="0" max="10">
+    <br>
+    <label for="voto5">Voto 5 (decimi): </label>
+    <input type="number" id="voto5" min="0" max="10">
+    <br>
+    <button onclick="convertiEVoti()">Converti e Trova il Voto Minimo</button>
+    <br>
+    <div id="risultati"></div>
+
+    <script>
+        function convertiEVoti() {
+            const voto1 = parseFloat(document.getElementById("voto1").value);
+            const voto2 = parseFloat(document.getElementById("voto2").value);
+            const voto3 = parseFloat(document.getElementById("voto3").value);
+            const voto4 = parseFloat(document.getElementById("voto4").value);
+            const voto5 = parseFloat(document.getElementById("voto5").value);
+
+            function convertiVoto(voto) {
+                return Math.round(voto * 3);
+            }
+
+            function minimo() {
+                return Math.min(voto1, voto2, voto3, voto4, voto5);
+            }
+
+            const voto1Convertito = convertiVoto(voto1);
+            const voto2Convertito = convertiVoto(voto2);
+            const voto3Convertito = convertiVoto(voto3);
+            const voto4Convertito = convertiVoto(voto4);
+            const voto5Convertito = convertiVoto(voto5);
+
+            const votoMinimo = minimo();
+
+            const risultatiHTML = `
+                <p>Voto 1 (trentesimi): ${voto1Convertito}</p>
+                <p>Voto 2 (trentesimi): ${voto2Convertito}</p>
+                <p>Voto 3 (trentesimi): ${voto3Convertito}</p>
+                <p>Voto 4 (trentesimi): ${voto4Convertito}</p>
+                <p>Voto 5 (trentesimi): ${voto5Convertito}</p>
+                <p>Voto Minimo: ${votoMinimo}</p>
+            `;
+
+            document.getElementById("risultati").innerHTML = risultatiHTML;
+        }
+    </script>
+</body>
+</html>
