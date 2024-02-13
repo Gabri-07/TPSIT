@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contatore con cambio di colore</title>
+<style>
+  #counter {
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    transition: background-color 0.5s ease;
+  }
+</style>
+</head>
+<body>
+
+<div id="counter">0</div>
+
+<script>
+  var counter = document.getElementById("counter");
+  var count = 0;
+
+  function incrementCounter() {
+    count++;
+    counter.textContent = count;
+    if (count % 10 === 0) {
+      changeColor();
+    }
+    if (count === 1000) {
+      clearInterval(counterInterval);
+    }
+  }
+
+  function changeColor() {
+    var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+    counter.style.backgroundColor = randomColor;
+  }
+
+  var counterInterval = setInterval(incrementCounter, 500);
+</script>
+
+</body>
+</html>                           
