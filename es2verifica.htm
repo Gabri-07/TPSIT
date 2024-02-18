@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio 2</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+        }
+
+        .btn {
+            border: 2px solid;
+            color: black;
+            text-align: center;
+            margin: 2% 1%;
+            cursor: pointer;
+            padding: 15px 32 px;
+            font-size: 16px;
+            border-radius: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <button class="btn" onclick="bottone1()">Bottone 1</button>
+    <button class="btn">Bottone 2</button>
+    <button class="btn" >Bottone 3</button>
+
+    <p id="risultato"></p>
+
+    <script>
+        let valoreCasuale = Math.floor(Math.random() * 100);
+        let c = valoreCasuale;
+        function bottone1(){
+            c = c + 2;
+            let risultato = document.getElementById("risultato")
+            
+
+            risultato.innerHTML = c;
+        }
+
+        function bottone2(){
+            c = c + 3;
+            let risultato = document.getElementById("risultato")
+            
+
+            risultato.innerHTML = c;
+        }
+      
+        function bottone3(){
+            c = c + 7;
+            let risultato = document.getElementById("risultato")
+            
+
+            risultato.innerHTML = c;
+        }
+
+
+    </script>
+    
+</body>
+</html>
