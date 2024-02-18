@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio 1</title>
+</head>
+<body>
+    <h1>Indice di Massa Corporea</h1>
+    <p>Altezza (in m)</p>
+    <input type="text" id="altezza">
+    <p>Peso (in kg)</p>
+    <input type="text" id="peso">
+    <button id="calcolaIMC" onclick="calcolaIMC()">Calcola IMC</button>
+    <p id="risultato"></p>
+
+    <script>
+        function calcolaIMC(){
+            let altezza = document.getElementById("altezza").value;
+            let peso = document.getElementById("peso").value;
+
+            let imc = peso / (altezza * altezza)
+
+            let risultato = document.getElementById("risultato");
+            risultato.innerHTML="Il valore e': " + imc.toString();   
+        }
+ 
+    </script>
+</body>
+</html>
