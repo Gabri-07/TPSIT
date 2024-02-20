@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot di Gabriele Pavan</title>
+</head>
+<body>
+    <div class="contenitore-Btn">
+        <button id="istruzioni">Istruzioni</button>
+        <button id="menu-drink">Menù Drink</button>
+        <button id="ordini">Ordini</button>
+    </div>
+    <div id="contenuto">
+    </div>
+    <script>
+        let contaClick = 0; 
+
+        const istruzioniBtn = document.getElementById("istruzioni");
+        const menuDrinkBtn = document.getElementById("menu-drink");
+        const ordiniBtn = document.getElementById("ordini");
+        const contenuto = document.getElementById("contenuto");
+
+        istruzioniBtn.addEventListener("click", () => {
+            if(contaClick==0){
+                alert("Ciao\n");
+                contaClick++;
+            } else if (contaClick==1){
+                alert("Sono un chatbot pronto per servirti. Scegli cosa vuoi fare");
+                contaClick++; 
+            } else if(contaClick == 2){
+                alert("Premi il secondo bottone per avere la lista dei drink che sono in grado di prepararti!");
+                contaClick++;
+            }
+            
+        });
+
+        menuDrinkBtn.addEventListener("click", () => {
+            //abbiamo iniettato codice HTML nel div --> con il metodo innerHTML
+            contenuto.innerHTML = 
+            `   <h1> Menù drink </h1>
+                <ul>
+                    <li>Mojito</li>
+                    <li>4 Bianchi</li>
+                    <li>Angelo Azzurro</li>
+                    <li>Margarita</li>
+                    <li>Cape Codder</li>
+                    <li>Daiquiri</li>
+                </ul>`;
+        });
+
+        ordiniBtn.addEventListener("click", () => {
+            contenuto.innerHTML = 
+            `<h1> Ordini </h1>
+            <p>Cosa vuoi ordinare?</p>
+            <ul>
+                <li><input type="checkbox" name="drink" value="Mojito"> Mojito</li>
+                <li><input type="checkbox" name="drink" value="4 Bianchi">4 Bianchi</li>
+                <li><input type="checkbox" name="drink" value="Angelo Azzurro">Angelo Azzurro</li>
+                <li><input type="checkbox" name="drink" value="Margarita">Margarita</li>
+                <li><input type="checkbox" name="drink" value="Cape Codder">Cape Codder</li>
+                <li><input type="checkbox" name="drink" value="Daiquiri">Daiquiri</li>
+            </ul>
+            <button id="conferma-ordine">Conferma ordine</button>
+            `;
+
+            const confermaOrdineBtn = document.getElementById("conferma-ordine");
+            confermaOrdineBtn.addEventListener("click", ()=>{
+                const arrDrink = [];
+                const drinkSelezionati = document.querySelectorAll('input[name="drink"]:checked'); //vado a prendere tutti gli elementi
+                //che hanno questa proprietà! name = drink e che hanno la spunta accanto
+                for(let i = 0; i<drinkSelezionati.length ; i++){
+                    arrDrink.push(drinkSelezionati[i].value);
+                }
+
+                let ordini = ""; //ordini è una stringa
+                for(const drink of arrDrink){
+                    //per ogni drink lo racchiudo tra tag <li> che sono gli elementi della lista html
+                    ordini += `<li>${drink}<li>`;
+                }
+
+                contenuto.innerHTML = `
+                <h1> Lista degli ordini selezionati </h1>
+                    <ul>
+                        ${ordini}
+                    </ul>
+                    `;
+            });
+
+        });
+
+    </script>
+    
+</body>
+</html>
