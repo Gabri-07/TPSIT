@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo area del cerchio</title>
+</head>
+<body>
+    <h1>Calcolo area del cerchio</h1>
+
+    <p>Inserisci il raggio del cerchio:</p>
+    <input type="number" id="raggio">
+    <button onclick="calcolaArea()">Calcola area</button>
+    <p id="risultato"></p>
+
+    <script>
+        function calcolaArea(){
+            const raggio = document.getElementById("raggio").value;
+            const area = Math.PI * raggio * raggio;
+            document.getElementById("risultato").innerHTML =  area;
+        }
+    </script>
+
+    <h2> Stampa quadrati </h2>
+    <p>Clicca sul pulsante per stampare a video A volte il quadrato di larghezza 20px</p>
+    <button onclick="stampaQuadrati()">Stampa quadrati</button>
+    <div id="quadrati"></div>
+
+    <script>
+        function stampaQuadrati(){
+            const area = document.getElementById("risultato");
+            var numero1 = area.textContent;
+            var number = Number(numero1);
+            const numeroQuadrati = Math.floor(number);
+            const divQuadrati = document.getElementById("quadrati");
+            divQuadrati.innerHTML = "";
+            for(let i = 0; i < numeroQuadrati; i++){
+                const quadrato = document.createElement("div");
+                quadrato.style.width = "20px";
+                quadrato.style.height = "20px";
+                quadrato.style.background = "red";
+                quadrato.style.margin = "2px";
+                divQuadrati.appendChild(quadrato);
+
+            }
+
+        }
+    </script>
+</body>
+</html>
