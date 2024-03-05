@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Esempio Bootstrap</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
+  </head>
+  
+  <body>
+  
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="background-color:#6f2cf5">
+  
+  <div class="container-fluid">
+    <img src="bmi_logo.png" class="img-fluid" alt="Logo BMI" width="15%">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Calcola</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Da sapere
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Cos'è</a></li>
+            <li><a class="dropdown-item" href="#">Quali sono i rischi</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link">Contattaci</a>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <h1 class="mb-4">Indice di Massa Corporea</h1>
+  <div class="input-group flex-nowrap mb-3 w-50 p-3">
+    <span class="input-group-text" id="descAltezza">Altezza (in m)</span>
+    <input type="text" id="altezza" class="form-control" placeholder="Altezza" aria-label="Altezza" aria-describedby="altezza">
+  </div>
+  <div class="input-group flex-nowrap mb-3 w-50 p-3">
+    <span class="input-group-text" id="descPeso">Peso (in kg)</span>
+    <input type="text" id="peso"class="form-control" placeholder="Peso" aria-label="Peso" aria-describedby="peso">
+  </div>
+    <div class="input-group flex-nowrap mb-3 w-50 p-3">
+    <button type="button" class="btn btn-primary" id="calcolaIMC" onclick="calcolaIMC()">Calcola IMC</button>
+  </div> 
+  <p id="risultato"></p>
+  
+
+    
+
+    
+    
+    
+
+
+    <script>
+        function calcolaIMC(){
+
+            let numero = "123"; // non è un numero, ma una stringa!
+            let altezza = document.getElementById("altezza").value;
+            let peso = document.getElementById("peso").value;
+
+            let imc = peso / (altezza * altezza)
+
+            let risultato = document.getElementById("risultato");
+            risultato.innerHTML="Il valore e': " + imc.toString();
+            
+        }
+ 
+    </script>
+
+   </div>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> 
+    <script src="js/bootstrap.min.js" ></script>
+  </body>
+</html>
