@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p id="drink"></p>
+  <p id="carrello"></p>
+  <button id="bottone-add" onclick="aggiungiDrink()">Aggiungi drink</button>
+  <button id="bottone-remove" onclick="cancellaDrink()">Cancella drink</button>
+  <button id="bottone-count" onclick="contaDrink()">Conta drink</button>
+  <button id="bottone-order" onclick="ordinaDrink()">ordina drink</button>
+
+  <p>Numero drink a menu : </p>
+  <p id="contaDrink"></p>
+
+  <h2>Carrello:</h2>
+  <p id="shop"></p>
+
+
+
+  <script>
+    const drinks = ["Coca-Cola", "Spritz", "Sprite", "Fanta", "Birra", "Belvedere", "Martini", "Coca-Cola Zero"]
+    let length = drinks.length;
+    const carrello1 = [];
+    document.getElementById("drink").innerHTML = drinks.join(" ") + " #drinks: " + length;
+
+    function contaDrink() {
+      let length = drinks.length;
+      document.getElementById("contaDrink").innerHTML = length;
+    }
+
+    function aggiungiDrink() {
+      let drink = prompt("Inserisci il tuo drink:");
+      drinks.push(drink);
+      let numeroDrink = drinks.length;
+      document.getElementById("drink").innerHTML = drinks.join(" ") + " #drinks: " + numeroDrink;
+    }
+
+    function cancellaDrink() {
+      let drink = drinks.pop();
+      let length = drinks.length;
+      document.getElementById("drink").innerHTML = drinks.join(" ") + " #drinks: " + length;
+
+    }
+
+    function ordinaDrink() {
+      let grandezzaDrink = (drinks.length) - 1;
+      let drinkDaordinare = prompt("Inserisci il tuo drink (0 -" + grandezzaDrink + ")");
+      carrello1.push(drinkDaordinare);
+      document.getElementById("shop").innerHTML = drinks[drinkDaordinare];
+    }
+  </script>
+
+</body>
+
+</html>
