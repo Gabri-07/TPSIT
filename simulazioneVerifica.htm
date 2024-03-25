@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulazione verifica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+        var soggetti = [];
+        var verbi = [];
+        var complementi = [];
+
+        function aggiungiSoggetto(){
+            var soggetto = prompt("Inserisci un soggetto: ");
+            if(soggetto){
+                soggetti.push(soggetto);
+            }
+        }
+
+        function aggiungiVerbo(){
+            var verbo = prompt("Inserisci un verbo: ");
+            if(verbo){
+                verbi.push(verbo);
+            }
+        }
+
+        function aggiungiComplemento(){
+            var complemento = prompt("Inserisci un complemento: ");
+            if(complemento){
+                complementi.push(complemento);
+            }
+        }
+
+        function creaFrase(){
+            if(soggetti.length > 0 && verbi.length > 0 && complementi.length > 0){
+                alert(soggetti[0] + " " + verbi[0] + " " + complementi[0]+".");
+            } else {
+                alert("Non hai inserito tutti i campi");
+            }
+        }
+
+        function creaFraseCasuale(){
+            var casualeSoggetto = Math.floor(Math.random() * soggetti.length);
+            var casualeVerbo = Math.floor(Math.random() * verbi.length);
+            var casualeComplemento = Math.floor(Math.random() * complementi.length);
+            if(soggetti.length > 0 && verbi.length > 0 && complementi.length > 0){
+                alert(soggetti[casualeSoggetto] + " " + verbi[casualeVerbo] + " " + complementi[casualeComplemento]+".");
+            } else {
+                alert("Non hai inserito tutti i campi");
+            }
+        }
+
+        function stampaSoggetti(){
+            var soggettiDaStampare = "Soggetti: ";
+            for (var i = 0; i < soggetti.length; i++){
+                soggettiDaStampare += soggetti[i] + " ";
+            }
+            document.getElementById("stampa").innerText = soggettiDaStampare;
+        }
+
+        function stampaVerbi(){
+            var verbiDaStampare = "Verbi: ";
+            for (var i = 0; i < verbi.length; i++){
+                verbiDaStampare += verbi[i] + " ";
+            }
+            document.getElementById("stampa").innerText = verbiDaStampare;
+        }
+
+        function stampaComplementi(){
+            var complementiDaStampare = "Complementi: ";
+            for (var i = 0; i < complementi.length; i++){
+                complementiDaStampare += complementi[i] + " ";
+            }
+            document.getElementById("stampa").innerText = complementiDaStampare;
+        }
+    </script>
+    <style>
+        #container{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #containerFlex{
+            padding: 3%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="containerFlex">
+            <h1>Generatore di Frasi</h1>
+            <h3>Simulazione per la Verifica</h3>
+            <h4>di Gabriele Pavan</h4>
+            <button onclick="aggiungiSoggetto()">Aggiungi Soggetto</button>
+            <button onclick="aggiungiVerbo()">Aggiungi Verbo</button>
+            <button onclick="aggiungiComplemento()">Aggiungi Complemento</button>
+            <button onclick="creaFrase()">Crea Frase</button>
+            <button onclick="creaFraseCasuale()">Crea Frase Casuale</button>
+            <button onclick="stampaSoggetti()">Stampa Soggetti</button>
+            <button onclick="stampaVerbi()">Stampa Verbi</button>
+            <button onclick="stampaComplementi()">Stampa Complementi</button>
+            <p id="stampa"></p>
+        </div>
+        
+    </div>
+    
+</body>
+</html>
