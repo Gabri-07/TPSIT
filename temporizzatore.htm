@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .divRandomico{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+
+       .rettangoloBlu{
+            background-color: blue;
+        }
+
+        .rettangoloGiallo{
+            background-color: yellow;
+        }
+
+        .rettangoloRosso{
+            background-color: red;
+        }
+     
+    </style>
+</head>
+<body>
+    <script>
+        function posizioneRandom(elemento){
+            const x = document.documentElement.clientWidth - elemento.clientWidth;
+            const y = document.documentElement.clientHeight - elemento.clientHeight;
+            const randomX = Math.floor(Math.random()*x);
+            const randomY = Math.floor(Math.random()*y);
+            elemento.style.left =`${randomX}px`;
+            elemento.style.top = `${randomY}px`;
+        }
+
+        function rettangoliSovrapposti(rett1, rett2){
+            if(!rett1 || !rett2){
+                console.error("Non è definito il rettangolo");
+                return false;
+            }
+            const r1 = rett1.getBoundingClientRect();
+            const r2 = rett2.getBoundingClientRect();
+            if(r2.left > r1.right || r2.right < r1.left || r2.top > r1.bottom || r2.bottom < r1.top){
+                return false;
+            }
+
+            return true;
+
+        }
+        function creaRettangolo(colore){
+            var div = document.createElement('div');
+            div.className = `divRandomico ${colore}`;
+            document.body.appendChild(div);
+            posizioneRandom(div);
+            return div;
+        }
+
+        const ret1 = creaRettangolo('rettangoloBlu');
+        const ret2 = creaRettangolo('rettangoloGiallo');
+
+        if(rettangoliSovrapposti(ret1,ret2)){
+            console.log("Sovrapposti");
+            ret1.className = `divRandomico rettangoloRosso`;
+            ret2.className = `divRandomico rettangoloRosso`;
+        } 
+    </script> 
+</body>
+</html>
