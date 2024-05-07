@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+       
+    <meta charset="UTF-8">
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <style>
+        .quadrato {
+            height: 20px;
+            width: 20px;
+            border: 1px solid black;
+            margin: 5px;
+            padding: 5px;
+            display: inline-block; /* metto i quadrati in linea */
+        }
+
+        .blue { background-color: blue} 
+        .rosso { background-color: red } 
+        .rosa { background-color: pink } 
+        .viola { background-color: violet } 
+    </style>
+
+</head>
+
+<body>
+
+       
+       
+    <script>
+        const numeri = [];
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+        //realizzare 100 quadrati con i div con colori di sfondo blu e 
+        // rosa con all'interno dei numeri casuali da 0 a 100
+        // se pari lo sfondo e rosa altrimenti blu
+        let nc;
+        for (let i = 0; i < 100; i++) {
+            nc = Math.floor((Math.random() * 100))
+            numeri.push(nc);
+            const quadrato = document.createElement('div');
+            quadrato.textContent = nc; // inserisce il numero nel quadrato
+            quadrato.classList.add('quadrato'); // assegna la classe quadrato al div
+            if (nc <= 25) {
+                quadrato.classList.add('blue'); 
+            } else if (nc <= 50) {
+                quadrato.classList.add('rosso'); 
+            } else if (nc <= 75) {
+                quadrato.classList.add('rosa'); 
+            } else {
+                quadrato.classList.add('viola'); 
+            }
+            
+            container.appendChild(quadrato);
+
+        }
+
+    </script>
+</body>
+
+</html>
