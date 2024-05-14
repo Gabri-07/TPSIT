@@ -1,0 +1,101 @@
+<SCRIPT Language='JavaScript'>
+
+    function inizia()
+    {                      
+       var cont = 1;
+        // questa funzione viene richiamata quando 
+        // viene caricato l'attributo onload nel tag body
+       var a = document.getElementsByName('A');
+       //cicla tutti gli elementi che hanno nome 'A'
+       for(i=0;i<a.length;i++)
+       {
+        //gli assegna un background color bianco e gli dà 
+        //posizione da sinistra uguale al suo indice * 60 e 
+        //gli aggiunge 10 pixel. 
+          a[i].style.backgroundColor='rgb(255,255,255)';
+          a[i].style.left=(i*60)+10;
+       }
+       
+       //crea e inizializza un array b
+       var b = new Array(); 
+       // questo vettore ha lunghezza pari al numero
+       //di elementi presenti con il nome 'A'
+       for(i=0;i<a.length;i++)
+       {
+        // ad ognuno degli elementi di b
+        //assegna il valore di 255
+          b[i]=255;
+       }
+     
+       //è una particolarissima funzione Javascript che permette
+       // di settare un intervallo che viene eseguito ogni
+       // 100 millisecondi. 
+       setInterval(function () {
+
+            //alla variabile pos do un valore casuale che va da 0 a a.length
+          pos=parseInt(Math.random()*a.length);
+          
+
+          if(b[pos]>0)
+          {
+            //se è vero decrementa il valore di b[pos] di cinque
+             b[pos]=b[pos]-5;
+             //aggiorna lo sfondo togliendo al rosso e al verde il valore 5
+                 a[pos].style.backgroundColor='rgb('+b[pos]+','+b[pos]+',255)';
+                 //aggiorna l'elemento in a con quello di b[pos]
+                 //innerHTML mi permette di modificare il contenuto interno
+                 //dell'elemento html
+                 a[pos].innerHTML=b[pos];
+                 
+                 if(b[pos]<120) 
+                    //cambiare a pos con il colore bianco (il testo)
+                   a[pos].style.color='white'; 
+
+                if(b[pos]==0){
+
+                    a[pos].style.background = 'red';
+                    a[pos].innerHTML = cont;
+                    cont = cont + 1;
+                }
+                 
+          } 
+          
+       }, 100);
+     
+    }
+    
+    </SCRIPT>
+    
+    
+    <HTML>
+       <HEAD>
+       <TITLE>test7</TITLE>
+       </HEAD>
+    
+       <style type="text/css">
+         
+          .miediv
+          {
+    
+             position:absolute;
+             height:50px;
+             width:50px;
+             border-width:1px;
+             border:solid black;
+         top:20px;
+             text-align:center;
+             color:black;
+          }
+    
+       </style>
+    
+       <BODY onLoad="inizia()">
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+       </BODY>
+    
+    </HTML>
