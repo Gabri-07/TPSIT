@@ -1,0 +1,73 @@
+<SCRIPT Language='JavaScript'>
+
+    function calcolaSuccessivo(dim) {
+        let successivo;
+        successivo = Math.floor(Math.random() * dim);
+        return successivo;
+    }
+
+    function inizia() {
+
+        let contatore = 1;
+        var a = document.getElementsByName('A');
+        var lung = a.length;
+        var pos = -1;
+
+        for (i = 0; i < lung; i++) {
+            a[i].style.backgroundColor = 'yellow';
+            a[i].style.left = (i * 60) + 10;
+        }
+
+        let intervallo = setInterval(function () {
+
+            if (pos < lung - 1) {
+                for (i = 0; i < lung; i++) {
+                    a[i].style.backgroundColor = 'yellow';
+                }
+
+                let successivo = calcolaSuccessivo(lung);
+
+                a[successivo].style.backgroundColor = 'red';
+                pos += 1;
+            }
+            else {
+                clearInterval(intervallo);
+                lung = lung - 1;
+                pos = -1;
+            }
+        }, 300);
+    }
+
+</SCRIPT>
+
+
+<HTML>
+
+<HEAD>
+    <TITLE>ArrayTemp</TITLE>
+</HEAD>
+
+<style type="text/css">
+    .miediv {
+
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        border-width: 1px;
+        border: solid black;
+        top: 20px;
+    }
+</style>
+
+<BODY onLoad="inizia()">
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+    <DIV name='A' class='miediv'></DIV>
+</BODY>
+
+</HTML>
