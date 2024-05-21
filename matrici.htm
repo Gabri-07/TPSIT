@@ -1,16 +1,35 @@
-// Creiamo una matrice 8x8 inizializzata con valori casuali tra 1 e 10
-var matrix = [];
-for (var i = 0; i < 8; i++) {
-  matrix[i] = [];
-  for (var j = 0; j < 8; j++) {
-    matrix[i][j] = Math.floor(Math.random() * 10) + 1;
-  }
-}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matrice 8x8 in JavaScript</title>
+</head>
+<body>
 
-// Stampiamo la matrice a schermo
-for (var i = 0; i < matrix.length; i++) {
-  for (var j = 0; j < matrix[i].length; j++) {
-    document.write(matrix[i][j] + " ");
-  }
-  document.write("<br>");
-}
+<h1>Matrice 8x8 in JavaScript</h1>
+
+<p>Questa è una matrice 8x8 con valori casuali generati:</p>
+
+<table border="1">
+  <script>
+    // Creiamo una matrice 8x8
+    var matrix = [];
+    for (var i = 0; i < 8; i++) {
+      matrix[i] = [];
+      for (var j = 0; j < 8; j++) {
+        matrix[i][j] = Math.floor(Math.random() * 10); // Generiamo un numero casuale tra 0 e 9
+      }
+    }
+
+    // Stampiamo la matrice nella tabella HTML
+    for (var i = 0; i < 8; i++) {
+      document.write("<tr>");
+      for (var j = 0; j < 8; j++) {
+        document.write("<td>" + matrix[i][j] + "</td>");
+      }
+      document.write("</tr>");
+    }
+  </script>
+</table>
+
+</body>
+</html>
