@@ -34,6 +34,18 @@ function printArrayInDivs(arr) {
     });
 }
 
+function isPrime(n) {
+    if (n <= 1) {
+        return false;
+    }
+    for (let i = 2; i * i <= n; i++) {
+        if (n % i === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function generatePrimes(limit) {
     const primes = [];
    
@@ -47,10 +59,9 @@ function generatePrimes(limit) {
 }
 
 
-const maxNumber = 100; 
+const maxNumber = 100;  // Limite massimo per trovare i numeri primi
 const primeNumbers = generatePrimes(maxNumber);
 printArrayInDivs(primeNumbers);
-
 
 </script>
    
