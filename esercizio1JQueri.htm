@@ -1,0 +1,75 @@
+<HTML>
+
+<HEAD>
+   <TITLE>esercizio 1 JQueri</TITLE>
+   <LINK rel="stylesheet" href="css/style.css" type="TEXT/CSS">
+
+   <SCRIPT src="js/jquery-1.7.2.min.js" ></SCRIPT>
+   <SCRIPT src="js/jquery-ui-1.8.21.custom.min.js" ></SCRIPT>
+
+   <SCRIPT type="text/javascript">
+      $(document).ready(function() {
+         let numeroDiv = 4;
+         let fermaTutti = false;
+      
+         for (let i = 0; i < numeroDiv; i++) {
+      
+            let nuovoDiv = document.createElement('div');
+            nuovoDiv.setAttribute('id', 'd' + i);
+            nuovoDiv.setAttribute('class', 'miediv');
+            $("body").append(nuovoDiv);
+      
+            let alto = 50;
+            let sinistra = 10 + (i * 160);
+      
+            $("#d" + i).html("Io sono " + $("#d" + i).attr('id'));
+            $("#d" + i).css({
+               'top': alto,
+               'left': sinistra
+            });
+      
+            $("#d" + i).data('direzione', 'giù');
+      
+            $("#d" + i).click(function() {
+               if (fermaTutti) return;
+      
+               let posizioneAlto = parseInt($(this).css('top'));
+               let direzione = $(this).data('direzione');
+      
+               if (direzione === 'giù') {
+                  if (posizioneAlto < 300) {
+                     posizioneAlto = posizioneAlto + 100;
+                  } else {
+                     $(this).data('direzione', 'su');
+                  }
+               } else if (direzione === 'su') {
+                  if (posizioneAlto > 50) {
+                     posizioneAlto = posizioneAlto - 100;
+                  } else {
+                     $(this).data('direzione', 'fermo');
+      
+                     if (!fermaTutti) {
+                        $(this).css('background-color', 'red');
+                        fermaTutti = true;
+                     }
+                  }
+               }
+      
+               $(this).css({ 'top': posizioneAlto });
+            });
+         }
+      });
+      </SCRIPT>
+
+
+</SCRIPT>
+
+
+   </SCRIPT>
+
+</HEAD>
+
+<BODY>
+</BODY>
+
+</HTML>
