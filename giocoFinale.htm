@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Number</title>
+    <style>
+       
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+
+        
+        h1 {
+            margin-top: 10px;
+            font-size: 36px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            color: #f39c12;
+        }
+
+        #game-container {
+            position: relative;
+            width: 320px;
+            height: 500px;
+            background: #ffffff;
+            border: 5px solid #00aaff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        #basket {
+            position: absolute;
+            bottom: 10px;
+            left: 130px;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(to top, #f39c12, #f1c40f);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 16px;
+            transition: left 0.05s ease-in-out;
+        }
+
+        .falling-number {
+            position: absolute;
+            top: -40px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ff7f50, #ff4500);
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50%;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite, rotate 3s infinite linear;
+        }
+
+        #info {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #level, #score {
+            color: #f39c12;
+        }
+
+        #prompt {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+      
+        #target-display {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #00aaff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Messaggio di vittoria o sconfitta */
+        #message {
+            display: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #lose-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 69, 0, 0.9);
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Count Number</h1>
+    <div id="game-container">
+        <div id="basket"></div>
+        <div id="target-display" style="display: none;">Target: 0</div>
+        <div id="lose-message">Hai superato il target! Torni al livello 1!</div> <!-- Messaggio di sconfitta -->
+    </div>
+    <div id="info">
+        <p>Livello: <span id="level">1</span></p>
+        <p>Punteggio: <span id="score">0</span></p>
+    </div>
+    <div id="prompt">
+        <p>Seleziona un numero tra <span id="range">10-50</span></p>
+        <input type="number" id="target-input" min="10" max="50">
+        <button onclick="startLevel()">Avvia Livello</button>
+    </div>
+
+    <div id="message"></div>
+
+    <script>
+        const basket = document.getElementById("basket");
+        const gameContainer = document.getElementById("game-container");
+        const levelDisplay = document.getElementById("level");
+        const scoreDisplay = document.getElementById("score");
+        const prompt = document.getElementById("prompt");
+        const targetInput = document.getElementById("target-input");
+        const targetDisplay = document.getElementById("target-display");
+        const loseMessageDiv = document.getElementById("lose-message");
+
+        let score = 0;
+        let level = 1;
+        let basketPosition = 130;
+        let target = 0;
+        let numberSpeed = 2000;
+        let fallingNumbersInterval = null;
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft" && basketPosition > 0) {
+                basketPosition -= 10;
+            } else if (event.key === "ArrowRight" && basketPosition < 240) {
+                basketPosition += 10;
+            }
+            basket.style.left = basketPosition + "px";
+        });
+
+        function generateNumber() {
+            return Math.floor(Math.random() * 9) + 1;
+        }
+
+        function createFallingNumber() {
+            const fallingNumber = document.createElement("div");
+            fallingNumber.classList.add("falling-number");
+            const num = generateNumber();
+            fallingNumber.textContent = num;
+
+            fallingNumber.style.left = Math.random() * 270 + "px";
+            gameContainer.appendChild(fallingNumber);
+
+            let numberPosition = 0;
+            const fallInterval = setInterval(() => {
+                numberPosition += 3;
+                fallingNumber.style.top = numberPosition + "px";
+
+                const basketRect = basket.getBoundingClientRect();
+                const numberRect = fallingNumber.getBoundingClientRect();
+
+                if (numberRect.bottom >= basketRect.top &&
+                    numberRect.left < basketRect.right &&
+                    numberRect.right > basketRect.left) {
+                    score += parseInt(fallingNumber.textContent);
+                    scoreDisplay.textContent = score;
+                    gameContainer.removeChild(fallingNumber);
+                    clearInterval(fallInterval);
+
+                    if (score === target) {
+                        showMessage("Livello completato!");
+                        nextLevel();
+                    } else if (score > target) {
+                        showLoseMessage(); // Mostra il messaggio di sconfitta
+                    }
+                }
+
+                if (numberPosition > 500) {
+                    gameContainer.removeChild(fallingNumber);
+                    clearInterval(fallInterval);
+                }
+            }, 10);
+        }
+
+       
+        function startLevel() {
+   
+            const minTarget = parseInt(targetInput.min);
+            const maxTarget = parseInt(targetInput.max);
+            const userTarget = parseInt(targetInput.value);
+
+            if (targetInput.value === "" || userTarget <= 0 || userTarget < minTarget || userTarget > maxTarget) {
+                showErrorMessage(`Il target deve essere tra ${minTarget} e ${maxTarget}`);  
+                return;  
+            }
+
+    
+            target = userTarget;
+            targetDisplay.textContent = `Target: ${target}`;
+            targetInput.disabled = true;
+            prompt.style.display = "none";
+            targetDisplay.style.display = "block";
+
+            fallingNumbersInterval = setInterval(createFallingNumber, numberSpeed);
+}
+
+
+        function showErrorMessage(text) {
+            const errorDiv = document.createElement("div");  
+            errorDiv.classList.add("error-message"); 
+            errorDiv.textContent = text;  
+            document.body.appendChild(errorDiv);  
+            setTimeout(() => {
+                errorDiv.style.display = "none"; 
+            }, 3000);
+}
+
+
+        function nextLevel() {
+            clearInterval(fallingNumbersInterval);
+            level++;
+            if (level > 10) {
+                showMessage("Hai completato tutti i livelli!");
+                return;
+            }
+           
+            levelDisplay.textContent = level;
+            score = 0;
+            scoreDisplay.textContent = score;
+
+            let newMin = 10 + (level - 1) * 10;
+            let newMax = 50 + (level - 1) * 10;
+            document.getElementById("range").textContent = `${newMin}-${newMax}`;
+            targetInput.min = newMin;
+            targetInput.max = newMax;
+
+            targetInput.disabled = false;
+            targetInput.value = "";
+            prompt.style.display = "block";
+            targetDisplay.style.display = "none";
+        }
+
+        function showMessage(text) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = text;
+            messageDiv.style.display = "block";
+            setTimeout(() => {
+                messageDiv.style.display = "none";
+            }, 2000);
+        }
+
+        function showLoseMessage() {
+            loseMessageDiv.style.display = "block";
+            setTimeout(() => {
+                loseMessageDiv.style.display = "none";
+                resetLevel();
+            }, 3000);
+        }
+
+        function resetLevel() {
+            clearInterval(fallingNumbersInterval);
+            score = 0;
+            level = 1;
+            levelDisplay.textContent = level;
+            scoreDisplay.textContent = score;
+
+            targetInput.min = 10;
+            targetInput.max = 50;
+            document.getElementById("range").textContent = "10-50";
+
+            targetInput.disabled = false;
+            targetInput.value = "";
+            prompt.style.display = "block";
+            targetDisplay.style.display = "none";
+        }
+    </script>
+</body>
+</html>
