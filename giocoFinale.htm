@@ -1,153 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Imposta il tipo di caratteri (UTF-8) e la viewport per dispositivi mobili -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titolo della pagina -->
     <title>Count Number</title>
     <style>
-       
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(120deg, #1e3c72, #2a5298);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
+         body {
+            margin: 0; /* Rimuove il margine di default */
+            font-family: 'Poppins', sans-serif; /* Imposta il font della pagina */
+            background: linear-gradient(120deg, #1e3c72, #2a5298); /* Imposta un gradiente di sfondo */
+            color: #fff; /* Colore del testo bianco */
+            display: flex; /* Usa il layout flex */
+            flex-direction: column; /* Dispone gli elementi in colonna */
+            align-items: center; /* Allinea gli elementi al centro orizzontalmente */
+            justify-content: flex-start; /* Allinea gli elementi in cima verticalmente */
+            height: 100vh; /* Imposta l'altezza al 100% della finestra */
         }
 
-        
         h1 {
-            margin-top: 10px;
-            font-size: 36px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-            color: #f39c12;
+            margin-top: 10px; /* Imposta il margine superiore dell'intestazione */
+            font-size: 36px; /* Imposta la dimensione del font dell'intestazione */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Aggiunge un'ombra al testo */
+            color: #f39c12; /* Colore del testo dell'intestazione */
         }
 
-        #game-container {
-            position: relative;
-            width: 320px;
-            height: 500px;
-            background: #ffffff;
-            border: 5px solid #00aaff;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+        #username-container {
             margin-top: 20px;
+            text-align: center;
+        }
+
+        #username-input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #username-button {
+            padding: 10px 20px;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #welcome-message {
+            font-size: 20px;
+            color: #f39c12;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        #game-container {
+            position: relative; /* Posizione relativa per il contenitore di gioco */
+            width: 320px; /* Larghezza del contenitore del gioco */
+            height: 500px; /* Altezza del contenitore del gioco */
+            background: #ffffff; /* Sfondo bianco per il contenitore */
+            border: 5px solid #00aaff; /* Bordo blu chiaro */
+            border-radius: 15px; /* Angoli arrotondati */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Aggiunge una leggera ombra */
+            overflow: hidden; /* Nasconde tutto il contenuto che esce dai bordi */
+            margin-top: 20px; /* Margine superiore */
         }
 
         #basket {
-            position: absolute;
-            bottom: 10px;
-            left: 130px;
-            width: 80px;
-            height: 40px;
-            background: linear-gradient(to top, #f39c12, #f1c40f);
-            border-radius: 20px 20px 0 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 16px;
-            transition: left 0.05s ease-in-out;
+            position: absolute; /* Posizione assoluta per il cestino */
+            bottom: 10px; /* Posizione in basso */
+            left: 130px; /* Posizione a sinistra del contenitore del gioco */
+            width: 80px; /* Larghezza del cestino */
+            height: 40px; /* Altezza del cestino */
+            background: linear-gradient(to top, #f39c12, #f1c40f); /* Gradiente di colore per il cestino */
+            border-radius: 20px 20px 0 0; /* Angoli arrotondati del cestino */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Aggiunge un'ombra al cestino */
+            display: flex; /* Usa il layout flex */
+            align-items: center; /* Allinea gli elementi al centro verticalmente */
+            justify-content: center; /* Allinea gli elementi al centro orizzontalmente */
+            font-weight: bold; /* Testo in grassetto */
+            color: #2c3e50; /* Colore del testo */
+            font-size: 16px; /* Dimensione del font */
+            transition: left 0.05s ease-in-out; /* Animazione per il movimento orizzontale */
         }
 
         .falling-number {
-            position: absolute;
-            top: -40px;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #ff7f50, #ff4500);
-            color: #fff;
-            text-align: center;
-            line-height: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 50%;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            animation: bounce 2s infinite, rotate 3s infinite linear;
+            position: absolute; /* Posizione assoluta per il numero che cade */
+            top: -40px; /* Posizione iniziale sopra il contenitore del gioco */
+            width: 50px; /* Larghezza del numero */
+            height: 50px; /* Altezza del numero */
+            background: radial-gradient(circle, #ff7f50, #ff4500); /* Gradiente per il numero */
+            color: #fff; /* Colore del testo del numero */
+            text-align: center; /* Allinea il testo al centro */
+            line-height: 50px; /* Allinea il testo verticalmente al centro */
+            font-size: 20px; /* Dimensione del font */
+            font-weight: bold; /* Testo in grassetto */
+            border-radius: 50%; /* Rende il numero circolare */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Aggiunge un'ombra al numero */
+            animation: bounce 2s infinite, rotate 3s infinite linear; /* Animazioni di rimbalzo e rotazione */
         }
 
         #info {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 18px;
+            margin-top: 20px; /* Margine superiore */
+            text-align: center; /* Allinea il testo al centro */
+            font-size: 18px; /* Dimensione del font */
         }
 
         p {
-            margin: 5px 0;
-            font-size: 20px;
-            font-weight: bold;
+            margin: 5px 0; /* Margine per i paragrafi */
+            font-size: 20px; /* Dimensione del font */
+            font-weight: bold; /* Testo in grassetto */
         }
 
         #level, #score {
-            color: #f39c12;
+            color: #f39c12; /* Colore del livello e del punteggio */
         }
 
         #prompt {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 18px;
+            margin-top: 20px; /* Margine superiore */
+            text-align: center; /* Allinea il testo al centro */
+            font-size: 18px; /* Dimensione del font */
         }
 
-      
         #target-display {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #00aaff;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            position: absolute; /* Posizione assoluta per la visualizzazione del target */
+            top: 10px; /* Posizione in alto */
+            left: 10px; /* Posizione a sinistra */
+            background: #00aaff; /* Colore di sfondo blu chiaro */
+            color: #fff; /* Colore del testo bianco */
+            padding: 10px; /* Padding per lo spazio interno */
+            border-radius: 5px; /* Angoli arrotondati */
+            font-weight: bold; /* Testo in grassetto */
+            font-size: 18px; /* Dimensione del font */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Aggiunge un'ombra */
         }
 
-        /* Messaggio di vittoria o sconfitta */
         #message {
-            display: none;
-            font-size: 24px;
-            font-weight: bold;
-            color: #f39c12;
-            text-align: center;
-            margin-top: 20px;
+            display: none; /* Messaggio nascosto inizialmente */
+            font-size: 24px; /* Dimensione del font */
+            font-weight: bold; /* Testo in grassetto */
+            color: #f39c12; /* Colore del testo */
+            text-align: center; /* Allinea il testo al centro */
+            margin-top: 20px; /* Margine superiore */
         }
 
         #lose-message {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 69, 0, 0.9);
-            color: #fff;
-            font-size: 28px;
-            font-weight: bold;
-            padding: 20px 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            z-index: 1000;
+            display: none; /* Messaggio di sconfitta nascosto inizialmente */
+            position: absolute; /* Posizione assoluta per il messaggio di sconfitta */
+            top: 50%; /* Posiziona al centro verticalmente */
+            left: 50%; /* Posiziona al centro orizzontalmente */
+            transform: translate(-50%, -50%); /* Centra esattamente il messaggio */
+            background-color: rgba(255, 69, 0, 0.9); /* Colore di sfondo rosso arancione */
+            color: #fff; /* Colore del testo bianco */
+            font-size: 28px; /* Dimensione del font */
+            font-weight: bold; /* Testo in grassetto */
+            padding: 20px 40px; /* Padding per lo spazio interno */
+            border-radius: 10px; /* Angoli arrotondati */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Ombra per il messaggio */
+            text-align: center; /* Allinea il testo al centro */
+            z-index: 1000; /* Porta il messaggio in primo piano */
         }
     </style>
 </head>
 <body>
+    <!-- Intestazione del gioco -->
     <h1>Count Number</h1>
-    <div id="game-container">
-        <div id="basket"></div>
-        <div id="target-display" style="display: none;">Target: 0</div>
-        <div id="lose-message">Hai superato il target! Torni al livello 1!</div> <!-- Messaggio di sconfitta -->
-    </div>
-    <div id="info">
-        <p>Livello: <span id="level">1</span></p>
-        <p>Punteggio: <span id="score">0</span></p>
-    </div>
-    <div id="prompt">
+    <div id="username-container">
+            <input type="text" id="username-input" placeholder="Inserisci il tuo username" />
+            <button id="username-button" onclick="setUsername()">Conferma Username</button>
+        </div>
+    
+        <div id="welcome-message">Benvenuto, <span id="username-display"></span>!</div>
+        <div id="game-container" style="display: none;">
+            <div id="basket"></div>
+            <div id="target-display" style="display: none;">Target: 0</div>
+            <div id="lose-message">Hai superato il target! Torni al livello 1!</div>
+        </div>
+        <div id="info" style="display: none;">
+            <p>Livello: <span id="level">1</span></p>
+            <p>Punteggio: <span id="score">0</span></p>
+        </div>
+    <div id="prompt" style="display: none;">
         <p>Seleziona un numero tra <span id="range">10-50</span></p>
         <input type="number" id="target-input" min="10" max="50">
         <button onclick="startLevel()">Avvia Livello</button>
@@ -156,6 +191,8 @@
     <div id="message"></div>
 
     <script>
+        /* Script per la logica di gioco */
+
         const basket = document.getElementById("basket");
         const gameContainer = document.getElementById("game-container");
         const levelDisplay = document.getElementById("level");
@@ -165,13 +202,14 @@
         const targetDisplay = document.getElementById("target-display");
         const loseMessageDiv = document.getElementById("lose-message");
 
-        let score = 0;
-        let level = 1;
-        let basketPosition = 130;
-        let target = 0;
-        let numberSpeed = 2000;
-        let fallingNumbersInterval = null;
+        let score = 0; /* Punteggio iniziale */
+        let level = 1; /* Livello iniziale */
+        let basketPosition = 130; /* Posizione iniziale del cestino */
+        let target = 0; /* Target iniziale */
+        let numberSpeed = 2000; /* Velocità di caduta dei numeri */
+        let fallingNumbersInterval = null; /* Intervallo per i numeri che cadono */
 
+        /* Evento per muovere il cestino */
         document.addEventListener("keydown", (event) => {
             if (event.key === "ArrowLeft" && basketPosition > 0) {
                 basketPosition -= 27;
@@ -181,10 +219,12 @@
             basket.style.left = basketPosition + "px";
         });
 
+        /* Funzione per generare numeri casuali */
         function generateNumber() {
             return Math.floor(Math.random() * 9) + 1;
         }
 
+        /* Funzione per creare il numero che cade */
         function createFallingNumber() {
             const fallingNumber = document.createElement("div");
             fallingNumber.classList.add("falling-number");
@@ -225,9 +265,8 @@
             }, 10);
         }
 
-       
+        /* Funzione per avviare il livello */
         function startLevel() {
-   
             const minTarget = parseInt(targetInput.min);
             const maxTarget = parseInt(targetInput.max);
             const userTarget = parseInt(targetInput.value);
@@ -237,7 +276,7 @@
                 return;  
             }
 
-    
+            /* Imposta il target e avvia il livello */
             target = userTarget;
             targetDisplay.textContent = `Target: ${target}`;
             targetInput.disabled = true;
@@ -245,9 +284,9 @@
             targetDisplay.style.display = "block";
 
             fallingNumbersInterval = setInterval(createFallingNumber, numberSpeed);
-}
+        }
 
-
+        /* Funzione per mostrare messaggi di errore */
         function showErrorMessage(text) {
             const errorDiv = document.createElement("div");  
             errorDiv.classList.add("error-message"); 
@@ -256,9 +295,9 @@
             setTimeout(() => {
                 errorDiv.style.display = "none"; 
             }, 3000);
-}
+        }
 
-
+        /* Funzione per passare al livello successivo */
         function nextLevel() {
             clearInterval(fallingNumbersInterval);
             level++;
@@ -266,7 +305,7 @@
                 showMessage("Hai completato tutti i livelli!");
                 return;
             }
-           
+
             levelDisplay.textContent = level;
             score = 0;
             scoreDisplay.textContent = score;
@@ -283,6 +322,7 @@
             targetDisplay.style.display = "none";
         }
 
+        /* Funzione per mostrare messaggi generici */
         function showMessage(text) {
             const messageDiv = document.getElementById("message");
             messageDiv.textContent = text;
@@ -292,6 +332,7 @@
             }, 2000);
         }
 
+        /* Funzione per mostrare il messaggio di sconfitta */
         function showLoseMessage() {
             loseMessageDiv.style.display = "block";
             setTimeout(() => {
@@ -300,6 +341,7 @@
             }, 3000);
         }
 
+        /* Funzione per resettare il livello */
         function resetLevel() {
             clearInterval(fallingNumbersInterval);
             score = 0;
@@ -315,6 +357,26 @@
             targetInput.value = "";
             prompt.style.display = "block";
             targetDisplay.style.display = "none";
+        }
+
+        let username = ""; /* Variabile per l'username */
+        const usernameInput = document.getElementById("username-input");
+        const usernameButton = document.getElementById("username-button");
+        const welcomeMessage = document.getElementById("welcome-message");
+        const usernameDisplay = document.getElementById("username-display");
+
+        function setUsername() {
+            username = usernameInput.value.trim();
+            if (username) {
+                usernameDisplay.textContent = username;
+                welcomeMessage.style.display = "block";
+                document.getElementById("username-container").style.display = "none";
+                document.getElementById("game-container").style.display = "block";
+                document.getElementById("info").style.display = "block";
+                document.getElementById("prompt").style.display = "block";
+            } else {
+                alert("Per favore, inserisci un nome!");
+            }
         }
     </script>
 </body>
