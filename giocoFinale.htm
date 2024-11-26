@@ -174,9 +174,9 @@
 
         document.addEventListener("keydown", (event) => {
             if (event.key === "ArrowLeft" && basketPosition > 0) {
-                basketPosition -= 23;
+                basketPosition -= 27;
             } else if (event.key === "ArrowRight" && basketPosition < 240) {
-                basketPosition += 23;
+                basketPosition += 27;
             }
             basket.style.left = basketPosition + "px";
         });
