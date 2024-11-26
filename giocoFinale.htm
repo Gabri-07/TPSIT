@@ -162,6 +162,24 @@
             text-align: center; /* Allinea il testo al centro */
             z-index: 1000; /* Porta il messaggio in primo piano */
         }
+
+        #target-input{
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #start-button{
+            padding: 10px 20px;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -185,7 +203,7 @@
     <div id="prompt" style="display: none;">
         <p>Seleziona un numero tra <span id="range">10-50</span></p>
         <input type="number" id="target-input" min="10" max="50">
-        <button onclick="startLevel()">Avvia Livello</button>
+        <button onclick="startLevel()" id="start-button">Avvia Livello</button>
     </div>
 
     <div id="message"></div>
