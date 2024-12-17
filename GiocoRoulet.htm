@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco roulet numerica</title>
+    <style>
+        .button-container {
+            margin-top: 20px;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .toggle-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .inactive {
+            background-color: #f0f0f0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Gioco roulet</h1>
+
+<div class="button-container">
+    <button id="pari" class="toggle-button">Pari</button>
+    <button id="dispari" class="toggle-button">Dispari</button>
+    <select id="decina">
+        <option value="0">Decina (scegli)</option>
+        <option value="1">1-10</option>
+        <option value="2">11-20</option>
+        <option value="3">21-30</option>
+        <option value="4">31-40</option>
+        <option value="5">41-50</option>
+        <option value="6">51-60</option>
+        <option value="7">61-70</option>
+        <option value="8">71-80</option>
+        <option value="9">81-90</option>
+    </select>
+    <input type="number" id="puntata-fissa" placeholder="Puntata fissa">
+</div>
+
+<div class="result" id="estrazione">Numero Estratto: --</div>
+<div class="result" id="vincite">Vincite: 0</div>
+<div class="result" id="estrazioni">Estrazioni: 0</div>
+
+<script>
+// Variabili
+let estrazioni = [];
+let vincite = 0;
+let numeroEstrazioni = 0;
+
+// Funzione per estrarre un numero casuale tra 1 e 90
+function estraiNumero() {
+    return Math.floor(Math.random() * 90) + 1;
+}
+
+// Funzione per verificare le condizioni di vincita
+function verificaVincita(num) {
+    let pari = document.getElementById("pari").classList.contains("active");
+    let dispari = document.getElementById("dispari").classList.contains("active");
+    let decina = document.getElementById("decina").value;
+    let puntataFissa = document.getElementById("puntata-fissa").value;
+
+    let isPari = num % 2 === 0;
+    let isDispari = !isPari;
+    let isNellaDecina = num >= decina * 10 + 1 && num <= decina * 10 + 10;
+    let isPuntataFissa = puntataFissa != "" && num == puntataFissa;
+
+    // Verifica pari/dispari
+    if (pari && isPari || dispari && isDispari || (decina != 0 && isNellaDecina) || isPuntataFissa) {
+        vincite++;
+    }
+}
+
+// Funzione per avviare la simulazione delle estrazioni
+function iniziaEstrazioni() {
+    let intervallo = setInterval(function() {
+        let numeroEstratto = estraiNumero();
+        estrazioni.push(numeroEstratto);
+        numeroEstrazioni++;
+
+        // Visualizza il numero estratto
+        document.getElementById("estrazione").textContent = `Numero Estratto: ${numeroEstratto}`;
+
+        // Verifica se il numero estratto corrisponde alle condizioni di vincita
+        verificaVincita(numeroEstratto);
+
+        // Mostra il numero di vincite e estrazioni
+        document.getElementById("vincite").textContent = `Vincite: ${vincite}`;
+        document.getElementById("estrazioni").textContent = `Estrazioni: ${numeroEstrazioni}`;
+
+        // Se si ottengono 10 vincite, ferma l'estrazione
+        if (vincite >= 10) {
+            clearInterval(intervallo);
+            alert("Hai vinto 10 volte! Simulazione terminata.");
+        }
+    }, 2000); // Intervallo di 2 secondi per ogni estrazione
+}
+
+// Funzione per gestire il toggle dei bottoni
+function toggleButton(id) {
+    let button = document.getElementById(id);
+    button.classList.toggle("active");
+    button.classList.toggle("inactive");
+}
+
+// Event listeners per i bottoni toggle
+document.getElementById("pari").addEventListener("click", function() {
+    toggleButton("pari");
+});
+
+document.getElementById("dispari").addEventListener("click", function() {
+    toggleButton("dispari");
+});
+
+// Avvia la simulazione delle estrazioni
+iniziaEstrazioni();
+
+</script>
+
+</body>
+</html>
